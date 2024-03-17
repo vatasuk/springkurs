@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1"  id = "addresses">
+    <tr>
+        <th style="visibility:hidden">Id</th>
+        <th>Название</th>
+
+
+    </tr>
+    <tr th:each="region: ${regions}">
+        <td style="visibility:hidden" th:text="${region.id}"></td>
+        <td th:text="${region.nameregion}"></td>
+        <td>
+            <a th:href="@{'/region/' + ${region.id} + '/cities'}">Показать города</a>
+        </td>
+    </tr>
+
+</table>
+</body>
+</html>

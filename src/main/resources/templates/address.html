@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список клиентов</title>
+</head>
+<body>
+<table border="1"  id = "addresses">
+    <tr>
+        <th style="visibility:hidden">Id</th>
+        <th>Город</th>
+        <th>Клиент</th>
+        <th>Улица</th>
+        <th>Здание</th>
+        <th>Офис</th>
+
+    </tr>
+    <tr th:each="address: ${addresses}">
+        <td style="visibility:hidden" th:text="${address.id}"></td>
+        <td th:text="${address.city_id}"></td>
+        <td th:text="${address.person}"></td>
+        <td th:text="${address.street}"></td>
+        <td th:text="${address.building}"></td>
+        <td th:text="${address.office}"></td>
+    </tr>
+    <a th:href="@{/}">Домой</a>
+</table>
+</body>
+</html>
