@@ -8,6 +8,8 @@
 <table border="1"  id = "addresses">
     <tr>
         <th style="visibility:hidden">Id</th>
+        <th>Страна</th>
+        <th>Регион</th>
         <th>Город</th>
         <th>Клиент</th>
         <th>Улица</th>
@@ -15,15 +17,17 @@
         <th>Офис</th>
 
     </tr>
-    <tr th:each="address: ${addresses}">
-        <td style="visibility:hidden" th:text="${address.id}"></td>
-        <td th:text="${address.city_id}"></td>
+    <tr th:each="address: ${addresses}" m>
+        <td style="visibility:hidden" th:text="${address.addressid}"></td>
+        <td th:text="${address.getCity().getRegion().getCountry().getFullname()}"></td>
+        <td th:text="${address.getCity().getRegion().getNameregion()}"></td>
+        <td th:text="${address.getCity().getNamecity()}"></td>
         <td th:text="${address.person}"></td>
         <td th:text="${address.street}"></td>
         <td th:text="${address.building}"></td>
         <td th:text="${address.office}"></td>
     </tr>
-    <a th:href="@{/}">Домой</a>
+
 </table>
 </body>
 </html>

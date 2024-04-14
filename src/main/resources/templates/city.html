@@ -5,18 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<table border="1"  id = "addresses">
+<table border="1"  id = "cities">
     <tr>
         <th style="visibility:hidden">Id</th>
         <th>Название</th>
+        <th>Регион</th>
+        <th>Страна</th>
 
 
     </tr>
     <tr th:each="city: ${cities}">
-        <td style="visibility:hidden" th:text="${city.id}"></td>
+        <td style="visibility:hidden" th:text="${city.cityid}"></td>
         <td th:text="${city.namecity}"></td>
+        <td th:text="${city.getRegion().getNameregion()}"></td>
+        <td th:text="${city.getRegion().getCountry().getFullname()}"></td>
         <td>
-            <a th:href="@{'/city/' + ${city.id} + '/addresses'}">Показать клиентов</a>
+            <a th:href="@{'/address/city/' + ${city.cityid} + '/addresses'}">Показать клиентов</a>
         </td>
     </tr>
 

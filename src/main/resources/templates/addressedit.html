@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/updateaddress}" th:object="${address}"
+      method="post">
+
+    <table border="0" cellpadding="10">
+        <tr>
+            <td>ID:</td>
+            <td><input type="text" th:field="*{addressid}" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td>Город:</td>
+            <td><select th:field = "*{city.cityid}">
+                <option th:each="city: ${cities}" th:value="${city.cityid}" th:text="${city.namecity}">
+                </option>
+            </select> </td>
+        </tr>
+        <tr>
+            <td>ФИО:</td>
+            <td><input type="text" th:field="*{person}" /></td>
+        </tr>
+        <tr>
+            <td>Улица:</td>
+            <td><input type="text" th:field="*{street}" /></td>
+        </tr>
+        <tr>
+            <td>Здание:</td>
+            <td><input type="text" th:field="*{building}" /></td>
+        </tr>
+        <tr>
+            <td>Офис:</td>
+            <td><input type="text" th:field="*{office}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit">Сохранить</button> </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>

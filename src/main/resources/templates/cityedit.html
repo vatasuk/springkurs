@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/updatecity}" th:object="${city}"
+      method="post">
+
+    <table border="0" cellpadding="10">
+        <tr>
+            <td>ID:</td>
+            <td><input type="text" th:field="*{cityid}" readonly="readonly" /></td>
+        </tr>
+        <tr>
+            <td>Страна:</td>
+            <td><select th:field = "*{region.regionid}">
+                <option th:each="region: ${regions}" th:value="${region.regionid}" th:text="${region.nameregion}">
+                </option>
+            </select> </td>
+        </tr>
+        <tr>
+            <td>Название:</td>
+            <td><input type="text" th:field="*{namecity}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit">Сохранить</button> </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>
