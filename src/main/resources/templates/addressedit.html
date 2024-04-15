@@ -22,19 +22,31 @@
         </tr>
         <tr>
             <td>ФИО:</td>
-            <td><input type="text" th:field="*{person}" /></td>
+            <td><input type="text" th:field="*{person}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('person')}"
+                      th:errors="*{person}">Name Error</span></td>
         </tr>
         <tr>
             <td>Улица:</td>
-            <td><input type="text" th:field="*{street}" /></td>
+            <td><input type="text" th:field="*{street}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('street')}"
+                      th:errors="*{street}">Name Error</span></td>
         </tr>
         <tr>
             <td>Здание:</td>
-            <td><input type="text" th:field="*{building}" /></td>
+            <td><input type="text" th:field="*{building}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('building')}"
+                      th:errors="*{building}">Name Error</span></td>
         </tr>
         <tr>
             <td>Офис:</td>
-            <td><input type="text" th:field="*{office}" /></td>
+            <td><input type="text" th:field="*{office}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('office')}"
+                      th:errors="*{office}">Name Error</span></td>
         </tr>
         <tr>
             <td colspan="2"><button type="submit">Сохранить</button> </td>

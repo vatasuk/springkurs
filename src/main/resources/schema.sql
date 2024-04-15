@@ -8,7 +8,7 @@ create table if not exists country
 create table if not exists region
 (
   regionid identity  primary key,
-  countryidfk  integer,
+  countryidfk  long,
   nameregion character varying(30) not null unique
 );
 

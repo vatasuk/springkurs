@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/main.css">
     <meta charset="UTF-8">
     <title>Список клиентов</title>
 </head>
-<body>
-<table border="1"  id = "addresses">
-    <tr>
-        <th style="visibility:hidden">Id</th>
-        <th>Страна</th>
-        <th>Регион</th>
-        <th>Город</th>
-        <th>Клиент</th>
-        <th>Улица</th>
-        <th>Здание</th>
-        <th>Офис</th>
+<div class="menu">
+    <ul>
+        <li><a th:href="@{/address}">Адреса</a></li>
+        <li><a th:href="@{/countries}">Страны</a></li>
+        <li><a th:href="@{/regions}">Регионы</a></li>
+        <li><a th:href="@{/cities}">Города</a></li>
+        <li><a th:href = "@{/admin}">админ</a></li>
+    </ul>
+</div>
+<table class="table"  id = "addresses">
+    <thead>
+        <tr>
+            <th>Страна</th>
+            <th>Регион</th>
+            <th>Город</th>
+            <th>Клиент</th>
+            <th>Улица</th>
+            <th>Здание</th>
+            <th>Офис</th>
+        </tr>
+    </thead>
+    <tbody>
 
-    </tr>
-    <tr th:each="address: ${addresses}" m>
-        <td style="visibility:hidden" th:text="${address.addressid}"></td>
-        <td th:text="${address.getCity().getRegion().getCountry().getFullname()}"></td>
-        <td th:text="${address.getCity().getRegion().getNameregion()}"></td>
-        <td th:text="${address.getCity().getNamecity()}"></td>
-        <td th:text="${address.person}"></td>
-        <td th:text="${address.street}"></td>
-        <td th:text="${address.building}"></td>
-        <td th:text="${address.office}"></td>
-    </tr>
-
+        <tr th:each="address: ${addresses}" m>
+            <td th:text="${address.getCity().getRegion().getCountry().getFullname()}"></td>
+            <td th:text="${address.getCity().getRegion().getNameregion()}"></td>
+            <td th:text="${address.getCity().getNamecity()}"></td>
+            <td th:text="${address.person}"></td>
+            <td th:text="${address.street}"></td>
+            <td th:text="${address.building}"></td>
+            <td th:text="${address.office}"></td>
+        </tr>
+    </tbody>
 </table>
-</body>
+
 </html>

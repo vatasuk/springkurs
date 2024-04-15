@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<table border="1"  id = "cities">
+<div class="menu">
+    <ul>
+        <li><a th:href="@{/address}">Адреса</a></li>
+        <li><a th:href="@{/countries}">Страны</a></li>
+        <li><a th:href="@{/regions}">Регионы</a></li>
+        <li><a th:href="@{/cities}">Города</a></li>
+        <li><a th:href = "@{/admin}">админ</a></li>
+    </ul>
+</div>
+<table class="table"  id = "cities">
+    <thead>
     <tr>
-        <th style="visibility:hidden">Id</th>
         <th>Название</th>
         <th>Регион</th>
         <th>Страна</th>
-
-
+        <th>Действие</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="city: ${cities}">
-        <td style="visibility:hidden" th:text="${city.cityid}"></td>
         <td th:text="${city.namecity}"></td>
         <td th:text="${city.getRegion().getNameregion()}"></td>
         <td th:text="${city.getRegion().getCountry().getFullname()}"></td>
@@ -23,7 +33,7 @@
             <a th:href="@{'/address/city/' + ${city.cityid} + '/addresses'}">Показать клиентов</a>
         </td>
     </tr>
-
+    </tbody>
 </table>
 </body>
 </html>

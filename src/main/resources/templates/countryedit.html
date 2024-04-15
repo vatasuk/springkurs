@@ -15,11 +15,17 @@
         </tr>
         <tr>
             <td>Название:</td>
-            <td><input type="text" th:field="*{fullname}" /></td>
+            <td><input type="text" th:field="*{fullname}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('fullname')}"
+                      th:errors="*{fullname}">Name Error</span></td>
         </tr>
         <tr>
             <td>Краткое название:</td>
-            <td><input type="text" th:field="*{shortname}" /></td>
+            <td><input type="text" th:field="*{shortname}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('shortname')}"
+                      th:errors="*{shortname}">Name Error</span></td>
         </tr>
         <tr>
             <td colspan="2"><button type="submit">Сохранить</button> </td>

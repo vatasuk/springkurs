@@ -10,8 +10,6 @@
 <div th:if="${error}">
     Невозможно войти. Проверьте свое имя пользователя и пароль.
 </div>
-<p>Не зарегистрированы? Перейдите по ссылке
-    <a th:href="@{/register}">регистрация</a> для регистрации.</p>
 <form method="POST" th:action="@{/login}" id="loginForm">
     <label for="username">Имя пользователя: </label>
     <input type="text" name="username" id="username" /><br/>

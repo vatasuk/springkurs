@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<table border="1"  id = "regions">
+<div class="menu">
+    <ul>
+        <li><a th:href="@{/address}">Адреса</a></li>
+        <li><a th:href="@{/countries}">Страны</a></li>
+        <li><a th:href="@{/regions}">Регионы</a></li>
+        <li><a th:href="@{/cities}">Города</a></li>
+        <li><a th:href = "@{/admin}">админ</a></li>
+    </ul>
+</div>
+<table class="table"  id = "regions">
+   <thead>
     <tr>
-        <th style="visibility:hidden">Id</th>
+
         <th>Название</th>
-        <th> Страна</th>
-
-
+        <th>Страна</th>
+        <th>Действие</th>
+   </thead>
+    <tbody>
     </tr>
     <tr th:each="region: ${regions}">
-        <td style="visibility:hidden" th:text="${region.regionid}"></td>
         <td th:text="${region.getCountry().getFullname()}"></td>
         <td th:text="${region.nameregion}"></td>
         <td>
             <a th:href="@{'/cities/' + ${region.regionid} + '/region'}">Показать города</a>
         </td>
     </tr>
-
+    </tbody>
 </table>
 </body>
 </html>

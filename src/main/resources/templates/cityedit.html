@@ -22,7 +22,10 @@
         </tr>
         <tr>
             <td>Название:</td>
-            <td><input type="text" th:field="*{namecity}" /></td>
+            <td><input type="text" th:field="*{namecity}" />
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('namecity')}"
+                      th:errors="*{namecity}">Name Error</span></td>
         </tr>
         <tr>
             <td colspan="2"><button type="submit">Сохранить</button> </td>
