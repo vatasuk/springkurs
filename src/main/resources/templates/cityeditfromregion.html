@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/cities/updatecity}" th:object="${city}"
+<form action="#" th:action="@{/cities/updatecityfromregion}" th:object="${city}"
       method="post">
 
     <table border="0" cellpadding="10">
@@ -16,7 +16,7 @@
         <tr>
             <td>Страна:</td>
             <td><select th:field = "*{region.regionid}">
-                <option th:each="region: ${regions}" th:value="${region.regionid}" th:text="${region.nameregion}">
+                <option th:value="${regionid}" th:text="${nameregion}">
                 </option>
             </select> </td>
         </tr>

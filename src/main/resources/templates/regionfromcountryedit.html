@@ -5,27 +5,27 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/cities/updatecity}" th:object="${city}"
+<form action="#" th:action="@{/regions/updateregionfromcity}" th:object="${region}"
       method="post">
 
     <table border="0" cellpadding="10">
         <tr>
             <td>ID:</td>
-            <td><input type="text" th:field="*{cityid}" readonly="readonly" /></td>
+            <td><input type="text" th:field="*{regionid}" readonly="readonly" /></td>
         </tr>
         <tr>
             <td>Страна:</td>
-            <td><select th:field = "*{region.regionid}">
-                <option th:each="region: ${regions}" th:value="${region.regionid}" th:text="${region.nameregion}">
+            <td><select th:field = "*{country.countryid}">
+                <option th:value="${countryid}" th:text="${fullname}">
                 </option>
             </select> </td>
         </tr>
         <tr>
             <td>Название:</td>
-            <td><input type="text" th:field="*{namecity}" />
+            <td><input type="text" th:field="*{nameregion}" />
                 <span class="validationError"
-                      th:if="${#fields.hasErrors('namecity')}"
-                      th:errors="*{namecity}">Name Error</span></td>
+                      th:if="${#fields.hasErrors('nameregion')}"
+                      th:errors="*{nameregion}">Name Error</span></td>
         </tr>
         <tr>
             <td colspan="2"><button type="submit">Сохранить</button> </td>

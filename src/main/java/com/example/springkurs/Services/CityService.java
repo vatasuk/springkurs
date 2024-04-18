@@ -19,7 +19,7 @@ public class CityService {
     }
 
     public Iterable<City> findAllCitiesByRegionId(long id){
-        return cityRepository.findCityByRegionid(id);
+        return cityRepository.findByRegion_Regionid(id);
     }
 
     public Iterable<City> findAllCities(){

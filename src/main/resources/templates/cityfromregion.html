@@ -31,20 +31,20 @@
         <td th:text="${city.getRegion().getCountry().getFullname()}"></td>
         <td>
             <a th:href="@{'/address/' + ${city.cityid} + '/city'}">Показать клиентов</a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/delete/' + ${city.cityid} + '/city'}">Удалить</a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/edit/' + ${city.cityid} + '/city'}">Изменить</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/'+${regionid}+ '/region/edit/' + ${city.cityid}}">Изменить</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/'+${regionid}+ '/region/delete/' + ${city.cityid}}">Удалить</a>
         </td>
     </tr>
     </tbody>
 </table>
-
-<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/cities/new}" th:object="${city}"
+</body>
+<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/cities/cityfromregion/new}" th:object="${city}"
       method="post">
     <table border="0" cellpadding="10">
         <tr>
             <td>Регион:</td>
             <td><select th:field = "*{region.regionid}">
-                <option th:each="region: ${regions}" th:value="${region.regionid}" th:text="${region.nameregion}">
+                <option th:value="${regionid}" th:text="${nameregion}">
                 </option>
             </select> </td>
         </tr>
@@ -60,5 +60,4 @@
         </tr>
     </table>
 </form>
-</body>
 </html>

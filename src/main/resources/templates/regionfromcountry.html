@@ -16,34 +16,34 @@
     </ul>
 </div>
 <table class="table"  id = "regions">
-   <thead>
+    <thead>
     <tr>
 
         <th>Название</th>
         <th>Страна</th>
         <th>Действие</th>
-   </thead>
+    </thead>
     <tbody>
     </tr>
     <tr th:each="region: ${regions}">
         <td th:text="${region.getCountry().getFullname()}"></td>
         <td th:text="${region.nameregion}"></td>
         <td>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/edit/' + ${region.regionid}}">Изменить</a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/delete/' + ${region.regionid}}">Удалить</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/'+${countryid}+ '/country/edit/' + ${region.regionid}}">Изменить</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/'+${countryid}+ '/country/delete/' + ${region.regionid}}">Удалить</a>
             <a  th:href="@{'/cities/' + ${region.regionid} + '/region'}">Показать города</a>
         </td>
     </tr>
     </tbody>
 </table>
 
-<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/regions/new}" th:object="${region}"
+<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/regions/regionfromcountry/new}" th:object="${region}"
       method="post">
     <table border="0" cellpadding="10">
         <tr>
             <td>Регион:</td>
             <td><select th:field = "*{country.countryid}">
-                <option th:each="country: ${countries}" th:value="${country.countryid}" th:text="${country.fullname}">
+                <option th:value="${countryid}" th:text="${fullname}">
                 </option>
             </select> </td>
         </tr>

@@ -20,7 +20,7 @@ import java.util.List;
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long regionid;
+    private Long regionid;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="countryidfk")

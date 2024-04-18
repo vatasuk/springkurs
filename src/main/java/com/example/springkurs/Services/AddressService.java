@@ -25,7 +25,7 @@ public class AddressService {
     }
 
     public Iterable<Address> findAllAddressesByCityId(long id){
-        return addressRepository.findAddressByCityid(id);
+        return addressRepository.findByCity_Cityid(id);
     }
 
     public void deleteAddressById(long id){

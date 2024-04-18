@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface CityRepository extends CrudRepository<City,Long> {
-    @Query(value = "select * from city where regionidfk = ?1", nativeQuery = true)
-    Iterable<City> findCityByRegionid(Long id);
+
+    Iterable<City> findByRegion_Regionid(Long id);
 }

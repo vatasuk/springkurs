@@ -20,7 +20,7 @@ public class RegionService {
     }
 
     public Iterable<Region> findAllRegionsByCountryId(long id){
-        return regionRepository.findRegionByCountryid(id);
+        return regionRepository.findByCountry_Countryid(id);
     }
 
     public Iterable<Region> findAllRegions()

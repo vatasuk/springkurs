@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>gfgfgfgf</title>
 </head>
 <body>
-<form action="#" th:action="@{/address/update}" th:object="${address}"
-      method="post">
+<form action="#" th:action="@{/address/updateaddressfromcity}" th:object="${address}"
+      method="post" >
 
-    <table border="0" cellpadding="10">
+    <table border="0" cellpadding="10" >
         <tr>
             <td>ID:</td>
             <td><input type="text" th:field="*{addressid}" readonly="readonly" /></td>
@@ -16,7 +16,7 @@
         <tr>
             <td>Город:</td>
             <td><select th:field = "*{city.cityid}">
-                <option th:each="city: ${cities}" th:value="${city.cityid}" th:text="${city.namecity}">
+                <option th:value="${cityid}" th:text="${namecity}">
                 </option>
             </select> </td>
         </tr>

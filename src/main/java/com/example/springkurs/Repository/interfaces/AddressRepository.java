@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 public interface AddressRepository extends CrudRepository<Address,Long> {
-    @Query(nativeQuery = true, value = "select * from address where cityidfk = ?1")
-    Iterable<Address> findAddressByCityid(long id);
+
+    Iterable<Address> findByCity_Cityid(long id);
 
 }

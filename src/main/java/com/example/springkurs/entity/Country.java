@@ -20,7 +20,7 @@ import java.util.List;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long countryid;
+    private Long countryid;
 
     @OneToMany(mappedBy = "country")
     private List<Region> regions;

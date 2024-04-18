@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface RegionRepository extends CrudRepository<Region,Long> {
-    @Query(value = "select * from region where countryidfk = ?", nativeQuery = true)
-    Iterable<Region> findRegionByCountryid(long id);
+
+    Iterable<Region> findByCountry_Countryid(long id);
 }
