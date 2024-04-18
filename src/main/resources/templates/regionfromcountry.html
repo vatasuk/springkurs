@@ -6,58 +6,72 @@
     <title>Title</title>
 </head>
 <body>
-<div class="menu">
-    <ul>
-        <li><a th:href="@{/address}">Адреса</a></li>
-        <li><a th:href="@{/countries}">Страны</a></li>
-        <li><a th:href="@{/regions}">Регионы</a></li>
-        <li><a th:href="@{/cities}">Города</a></li>
-        <li><a th:href = "@{/admin}">админ</a></li>
-    </ul>
-</div>
-<table class="table"  id = "regions">
-    <thead>
-    <tr>
+<ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
+</ul>
+<ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right"><a th:href = "@{/login}">Вход</a></li>
+</ul>
 
-        <th>Название</th>
-        <th>Страна</th>
-        <th>Действие</th>
-    </thead>
-    <tbody>
-    </tr>
-    <tr th:each="region: ${regions}">
-        <td th:text="${region.getCountry().getFullname()}"></td>
-        <td th:text="${region.nameregion}"></td>
-        <td>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/'+${countryid}+ '/country/edit/' + ${region.regionid}}">Изменить</a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/'+${countryid}+ '/country/delete/' + ${region.regionid}}">Удалить</a>
-            <a  th:href="@{'/cities/' + ${region.regionid} + '/region'}">Показать города</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/regions/regionfromcountry/new}" th:object="${region}"
-      method="post">
-    <table border="0" cellpadding="10">
+<div class="scroll-table">
+    <table class="table"  id = "countries">
+        <thead>
         <tr>
-            <td>Регион:</td>
-            <td><select th:field = "*{country.countryid}">
+            <th>Название</th>
+            <th>Страна</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+    </table>
+    <div class="scroll-table-body">
+        <table>
+            <tbody>
+            <tr th:each="region: ${regions}">
+                <td th:text="${region.getCountry().getFullname()}"></td>
+                <td th:text="${region.nameregion}"></td>
+                <td>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/'+${countryid}+ '/country/edit/' + ${region.regionid}}">Изменить</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/'+${countryid}+ '/country/delete/' + ${region.regionid}}">Удалить</a>
+                    <a  th:href="@{'/cities/' + ${region.regionid} + '/region'}">Показать города</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/regions/regionfromcountry/new}" th:object="${region}"
+      method="post">
+    <ul>
+        <li>
+            <label >Страна</label>
+            <select th:field = "*{country.countryid}">
                 <option th:value="${countryid}" th:text="${fullname}">
                 </option>
-            </select> </td>
-        </tr>
-        <tr>
-            <td>Название:</td>
-            <td><input type="text" th:field="*{nameregion}"/>
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('nameregion')}"
-                      th:errors="*{nameregion}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button type="submit">Сохранить</button> </td>
-        </tr>
-    </table>
+            </select>
+        </li>
+        <li>
+            <label > Название</label>
+            <input type="text" th:field="*{nameregion}" />
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('nameregion')}"
+                  th:errors="*{nameregion}">Name Error</span>
+        </li>
+        <li>
+            <input type="submit" value="Добавить регион" >
+        </li>
+    </ul>
 </form>
 </body>
 </html>

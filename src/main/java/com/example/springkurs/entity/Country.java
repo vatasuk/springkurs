@@ -22,14 +22,14 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long countryid;
 
-    @OneToMany(mappedBy = "country")
-    private List<Region> regions;
+
     @NotNull
     @Size(min = 4,message = "Мало букав")
     private String fullname;
     @NotNull
     @Size(min = 2,message = "Мало букав")
     private String shortname;
-
+    @OneToMany(mappedBy = "country")
+    private List<Region> regions;
 
 }

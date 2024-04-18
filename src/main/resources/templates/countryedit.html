@@ -1,37 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html  lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <link rel="stylesheet" href="/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<form action="#" th:action="@{/countries/update}" th:object="${country}"
-      method="post">
+<body><ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
+</ul>
+<form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/countries/update}" th:object="${country}"
+      method="post" text="Но">
 
-    <table border="0" cellpadding="10">
-        <tr>
-            <td>ID:</td>
-            <td><input type="text" th:field="*{countryid}" readonly="readonly" /></td>
-        </tr>
-        <tr>
-            <td>Название:</td>
-            <td><input type="text" th:field="*{fullname}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('fullname')}"
-                      th:errors="*{fullname}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Краткое название:</td>
-            <td><input type="text" th:field="*{shortname}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('shortname')}"
-                      th:errors="*{shortname}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button type="submit">Сохранить</button> </td>
-        </tr>
-    </table>
+    <ul>
+        <li>
+            <label >Полное название</label>
+            <input type="text" th:field="*{countryid}" readonly="readonly">
 
+        </li>
+        <li>
+            <label >Полное название</label>
+            <input type="text" th:field="*{fullname}" maxlength="100">
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('shortname')}"
+                  th:errors="*{shortname}">Name Error</span>
+        </li>
+        <li>
+            <label >Краткое название</label>
+            <input type="text" th:field="*{shortname}" maxlength="15">
+
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('fullname')}"
+                  th:errors="*{fullname}">Name Error</span>
+        </li>
+        <li>
+            <input type="submit" value="Изменить" >
+        </li>
+    </ul>
 </form>
 </body>
 </html>

@@ -2,7 +2,7 @@ create table if not exists country
 (
     countryid identity  primary key,
     fullname character varying(30) not null unique,
-    shortname character varying(10) not null unique
+    shortname character varying(10) not null
 );
 
 create table if not exists region

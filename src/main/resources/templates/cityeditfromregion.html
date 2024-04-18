@@ -1,37 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <link rel="stylesheet" href="/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/cities/updatecityfromregion}" th:object="${city}"
+<ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
+</ul>
+<form class="form-style-7" action="#" th:action="@{/cities/updatecityfromregion}" th:object="${city}"
       method="post">
+    <ul>
+        <li>
+            <label >ID</label>
+            <input type="text" th:field="*{cityid}" readonly="readonly" />
 
-    <table border="0" cellpadding="10">
-        <tr>
-            <td>ID:</td>
-            <td><input type="text" th:field="*{cityid}" readonly="readonly" /></td>
-        </tr>
-        <tr>
-            <td>Страна:</td>
-            <td><select th:field = "*{region.regionid}">
+        </li>
+        <li>
+            <label >Страна</label>
+            <select th:field = "*{region.regionid}">
                 <option th:value="${regionid}" th:text="${nameregion}">
                 </option>
-            </select> </td>
-        </tr>
-        <tr>
-            <td>Название:</td>
-            <td><input type="text" th:field="*{namecity}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('namecity')}"
-                      th:errors="*{namecity}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button type="submit">Сохранить</button> </td>
-        </tr>
-    </table>
+            </select>
 
+        </li>
+        <li>
+            <label >Название</label>
+            <input type="text" th:field="*{namecity}" />
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('namecity')}"
+                  th:errors="*{namecity}">Name Error</span></td>
+        </li>
+        <li>
+            <input type="submit" value="Изменить" >
+        </li>
+    </ul>
 </form>
+
 </body>
 </html>

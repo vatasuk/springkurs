@@ -1,58 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/main.css" >
+    <meta charset="UTF-8" >
     <title>gfgfgfgf</title>
 </head>
 <body>
-<form action="#" th:action="@{/address/updateaddressfromcity}" th:object="${address}"
+<ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
+</ul>
+<form class="form-style-7" action="#" th:action="@{/address/updateaddressfromcity}" th:object="${address}"
       method="post" >
+    <ul>
+        <li>
+            <label >Регион</label>
+            <input type="text" th:field="*{addressid}" readonly="readonly" />
 
-    <table border="0" cellpadding="10" >
-        <tr>
-            <td>ID:</td>
-            <td><input type="text" th:field="*{addressid}" readonly="readonly" /></td>
-        </tr>
-        <tr>
-            <td>Город:</td>
-            <td><select th:field = "*{city.cityid}">
+        </li>
+        <li>
+            <label >Регион</label>
+            <select th:field = "*{city.cityid}">
                 <option th:value="${cityid}" th:text="${namecity}">
                 </option>
-            </select> </td>
-        </tr>
-        <tr>
-            <td>ФИО:</td>
-            <td><input type="text" th:field="*{person}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('person')}"
-                      th:errors="*{person}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Улица:</td>
-            <td><input type="text" th:field="*{street}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('street')}"
-                      th:errors="*{street}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Здание:</td>
-            <td><input type="text" th:field="*{building}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('building')}"
-                      th:errors="*{building}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Офис:</td>
-            <td><input type="text" th:field="*{office}" />
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('office')}"
-                      th:errors="*{office}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button type="submit">Сохранить</button> </td>
-        </tr>
-    </table>
+            </select>
 
+        </li>
+        <li>
+            <label > ФИО</label>
+            <input type="text" th:field="*{person}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('person')}"
+                  th:errors="*{person}">Name Error</span>
+        </li>
+        <li>
+            <label > Улица</label>
+            <input type="text" th:field="*{street}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('street')}"
+                  th:errors="*{street}">Name Error</span>
+        </li>
+        <li>
+            <label > Номер здания</label>
+            <input type="text" th:field="*{building}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('building')}"
+                  th:errors="*{building}">Name Error</span>
+        </li>
+        <li>
+            <label > Офис</label>
+            <input type="text" th:field="*{office}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('office')}"
+                  th:errors="*{office}">Name Error</span>
+        </li>
+
+
+        <li>
+            <input type="submit" value="Добавить адрес" >
+        </li>
+    </ul>
 </form>
+
 </body>
 </html>

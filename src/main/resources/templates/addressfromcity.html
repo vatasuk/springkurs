@@ -5,18 +5,20 @@
     <meta charset="UTF-8">
     <title>Список клиентов</title>
 </head>
-<div class="menu" >
-    <ul>
-        <li><a th:href="@{/address}">Адреса</a></li>
-        <li><a th:href="@{/countries}">Страны</a></li>
-        <li><a th:href="@{/regions}">Регионы</a></li>
-        <li><a th:href="@{/cities}">Города</a></li>
-        <li><a th:href = "@{/admin}">админ</a></li>
-    </ul>
-</div>
+<ul class="topnav">
+    <li ><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
+</ul>
 
-<table  class="table"  id = "addresses">
-    <thead>
+
+<div class="scroll-table">
+    <table class="table"  id = "countries">
+        <thead>
     <tr>
         <th>Страна</th>
         <th>Регион</th>
@@ -27,8 +29,12 @@
         <th>Офис</th>
         <th sec:authorize="hasRole('ADMIN')"> Действие</th>
     </tr>
-    </thead>
-    <tbody>
+        </thead>
+    </table>
+
+    <div class="scroll-table-body">
+        <table>
+            <tbody>
 
     <tr th:each="address: ${addresses}" >
         <td th:text="${address.getCity().getRegion().getCountry().getFullname()}"></td>
@@ -44,50 +50,55 @@
         </td>
     </tr>
     </tbody>
-</table>
-<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/address/addressfromcity/new}" th:object="${address}"
-      method="post">
-    <table border="0" cellpadding="10">
-        <tr>
-            <td>Город:</td>
-            <td><select th:field = "*{city.cityid}">
-                <option  th:value="${cityid}" th:text="${namecity}">
-                </option>
-            </select> </td>
-        </tr>
-        <tr>
-            <td>ФИО:</td>
-            <td><input type="text" th:field="*{person}"/>
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('person')}"
-                      th:errors="*{person}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Улица:</td>
-            <td><input type="text" th:field="*{street}"/>
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('street')}"
-                      th:errors="*{street}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Номер здания:</td>
-            <td><input type="text" th:field="*{building}"/>
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('building')}"
-                      th:errors="*{building}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td>Номер офиса:</td>
-            <td><input type="text" th:field="*{office}"/>
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('office')}"
-                      th:errors="*{office}">Name Error</span></td>
-        </tr>
-
-        <tr>
-            <td colspan="2"><button type="submit">Сохранить</button> </td>
-        </tr>
     </table>
+</div>
+</div>
+
+<form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/address/addressfromcity/new}" th:object="${address}"
+      method="post">
+    <ul>
+        <li>
+            <label >Регион</label>
+            <select th:field = "*{city.cityid}">
+                <option th:value="${cityid}" th:text="${namecity}">
+                </option>
+            </select>
+
+        </li>
+        <li>
+            <label > ФИО</label>
+            <input type="text" th:field="*{person}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('person')}"
+                  th:errors="*{person}">Name Error</span>
+        </li>
+        <li>
+            <label > Улица</label>
+            <input type="text" th:field="*{street}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('street')}"
+                  th:errors="*{street}">Name Error</span>
+        </li>
+        <li>
+            <label > Номер здания</label>
+            <input type="text" th:field="*{building}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('building')}"
+                  th:errors="*{building}">Name Error</span>
+        </li>
+        <li>
+            <label > Офис</label>
+            <input type="text" th:field="*{office}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('office')}"
+                  th:errors="*{office}">Name Error</span>
+        </li>
+
+
+        <li>
+            <input type="submit" value="Добавить адрес" >
+        </li>
+    </ul>
 </form>
 
 </html>

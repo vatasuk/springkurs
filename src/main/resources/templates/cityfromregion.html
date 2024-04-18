@@ -6,6 +6,15 @@
     <title>Title</title>
 </head>
 <body>
+<ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
+</ul>
 <div class="menu">
     <ul>
         <li><a th:href="@{/address}">Адреса</a></li>
@@ -15,49 +24,62 @@
         <li><a th:href = "@{/admin}">админ</a></li>
     </ul>
 </div>
-<table class="table"  id = "cities">
-    <thead>
-    <tr>
-        <th>Название</th>
-        <th>Регион</th>
-        <th>Страна</th>
-        <th> Действие</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="city: ${cities}">
-        <td th:text="${city.namecity}"></td>
-        <td th:text="${city.getRegion().getNameregion()}"></td>
-        <td th:text="${city.getRegion().getCountry().getFullname()}"></td>
-        <td>
-            <a th:href="@{'/address/' + ${city.cityid} + '/city'}">Показать клиентов</a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/'+${regionid}+ '/region/edit/' + ${city.cityid}}">Изменить</a>
-            <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/'+${regionid}+ '/region/delete/' + ${city.cityid}}">Удалить</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</body>
-<form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/cities/cityfromregion/new}" th:object="${city}"
-      method="post">
-    <table border="0" cellpadding="10">
+
+<div class="scroll-table">
+    <table class="table"  id = "countries">
+        <thead>
         <tr>
-            <td>Регион:</td>
-            <td><select th:field = "*{region.regionid}">
+            <th>Название</th>
+            <th>Регион</th>
+            <th>Страна</th>
+            <th> Действие</th>
+        </tr>
+        </thead>
+    </table>
+
+    <div class="scroll-table-body">
+        <table>
+            <tbody>
+            <tr th:each="city: ${cities}">
+                <td th:text="${city.namecity}"></td>
+                <td th:text="${city.getRegion().getNameregion()}"></td>
+                <td th:text="${city.getRegion().getCountry().getFullname()}"></td>
+                <td>
+                    <a th:href="@{'/address/' + ${city.cityid} + '/city'}">Показать клиентов</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/'+${regionid}+ '/region/edit/' + ${city.cityid}}">Изменить</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/cities/'+${regionid}+ '/region/delete/' + ${city.cityid}}">Удалить</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+
+
+<form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/cities/new}" th:object="${city}"
+      method="post">
+    <ul>
+        <li>
+            <label >Регион</label>
+            <select th:field = "*{region.regionid}">
                 <option th:value="${regionid}" th:text="${nameregion}">
                 </option>
-            </select> </td>
-        </tr>
-        <tr>
-            <td>Название:</td>
-            <td><input type="text" th:field="*{namecity}"/>
-                <span class="validationError"
-                      th:if="${#fields.hasErrors('namecity')}"
-                      th:errors="*{namecity}">Name Error</span></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button type="submit">Сохранить</button> </td>
-        </tr>
-    </table>
+            </select>
+
+        </li>
+        <li>
+            <label > Название</label>
+            <input type="text" th:field="*{namecity}"/>
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('namecity')}"
+                  th:errors="*{namecity}">Name Error</span>
+        </li>
+        <li>
+            <input type="submit" value="Добавить город" >
+        </li>
+    </ul>
 </form>
+
 </html>

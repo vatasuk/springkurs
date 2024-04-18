@@ -1,25 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <link rel="stylesheet" href="/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 
 </head>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form>
-Добро пожаловать
-<body>
-<div class="menu">
-    <ul>
-        <li><a th:href="@{/address}">Адреса</a></li>
-        <li><a th:href="@{/countries}">Страны</a></li>
-        <li><a th:href="@{/regions}">Регионы</a></li>
-        <li><a th:href="@{/cities}">Города</a></li>
-        <li><a th:href = "@{/admin}">админ</a></li>
-    </ul>
-</div>
-
+<ul class="topnav">
+    <li><a th:href="@{/}">Домой</a></li>
+    <li><a th:href="@{/address}">Адреса</a></li>
+    <li><a th:href="@{/countries}">Страны</a></li>
+    <li><a th:href="@{/regions}">Регионы</a></li>
+    <li><a th:href="@{/cities}">Города</a></li>
+    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
+    <li class="right" sec:authorize="isAuthenticated()" ><form th:action="@{/logout}" method="post"><input type="submit" value="Logout" /></form></li>
+</ul>
+<P align="center" sec:authorize="isAuthenticated()"> Вы вошли как администатор</P>
 </body>
 </html>
