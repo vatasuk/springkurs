@@ -4,7 +4,6 @@ import com.example.springkurs.Services.AddressService;
 import com.example.springkurs.Services.CityService;
 import com.example.springkurs.Services.CountryService;
 import com.example.springkurs.Services.RegionService;
-import com.example.springkurs.controller.AdminController;
 
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,7 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(AdminController.class)
+
 @ExtendWith(MockitoExtension.class)
 public class AdminControllerTest {
     @Autowired
@@ -33,8 +32,7 @@ public class AdminControllerTest {
     private CityService cityService;
     @MockBean
     private AddressService addressService;
-    @InjectMocks
-    private AdminController adminController;
+
 
     @Test
     @WithMockUser(username = "vadim", roles = "admin")

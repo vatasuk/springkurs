@@ -6,15 +6,8 @@
     <title>Title</title>
 </head>
 <body>
-<ul class="topnav">
-    <li><a th:href="@{/}">Домой</a></li>
-    <li><a th:href="@{/address}">Адреса</a></li>
-    <li><a th:href="@{/countries}">Страны</a></li>
-    <li><a th:href="@{/regions}">Регионы</a></li>
-    <li><a th:href="@{/cities}">Города</a></li>
-    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
-    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
-</ul>
+<p><a th:href="@{/}"><img src="/static/images/home.png" width="68" height="68" border="0" alt=""></a></p>
+<div class="scroll-table">
 <form class="form-style-7" action="#" th:action="@{/cities/updatecity}" th:object="${city}"
       method="post">
     <ul>

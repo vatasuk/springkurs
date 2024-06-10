@@ -6,6 +6,7 @@ import com.example.springkurs.entity.Address;
 import com.example.springkurs.entity.City;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,26 +30,13 @@ public class AddressController {
     }
 
     @GetMapping
-    public String showAddresses(Model model)
+    public String showAddresses(Model model,@Param("namecountry") String namecountry, @Param("nameregion") String nameregion, @Param("namecity") String namecity)
     {
-        Iterable<Address> addresses = addressService.findAllAddresses();
-        Iterable<City> cities = cityService.findAllCities();
-        model.addAttribute("addresses",addresses);
-        model.addAttribute("cities",cities);
-        Address address = new Address();
-        model.addAttribute("address",address);
+        addressService.fill(namecity,nameregion,namecountry,model);
+
+        model.addAttribute("cities",cityService.findAllCities());
+        model.addAttribute("address",new Address());
         return "address";
-    }
-    @GetMapping(value = "/{id}/city")
-    public String ShowAddressesFromCity(Model model, @PathVariable(name = "id") Long id) {
-        Iterable<Address> addresses = addressService.findAllAddressesByCityId(id);
-        Optional<City> city = cityService.showCityById(id);
-        model.addAttribute("addresses",addresses);
-        Address address = new Address();
-        model.addAttribute("address",address);
-        model.addAttribute("cityid",id);
-        model.addAttribute("namecity",city.get().getNamecity());
-        return "addressfromcity";
     }
     @GetMapping(value = "/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -56,14 +44,6 @@ public class AddressController {
         addressService.deleteAddressById(id);
 
         return "redirect:/address";
-    }
-    @RequestMapping(value = "/{cityid}/city/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String deleteAddressFromCity( @PathVariable(name = "id") long id,
-                                     @PathVariable(name = "cityid") long cityid){
-        addressService.deleteAddressById(id);
-
-        return "redirect:/address/{cityid}/city";
     }
 
     @PostMapping( "/new")
@@ -80,42 +60,15 @@ public class AddressController {
         }
         return "redirect:/address";
     }
-    @PostMapping( "addressfromcity/new")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String newAddressFromCity(Model model, @ModelAttribute(value = "address") @Valid Address address, Errors errors){
-        long cityid = address.getCity().getCityid();
-        if (errors.hasErrors()) {
-            Optional<City> city = cityService.showCityById(address.getCity().getCityid());
-           // model.addAttribute("cities",city);
-            model.addAttribute("cityid",cityid);
-            model.addAttribute("namecity",city.get().getNamecity());
-            model.addAttribute("addresses",addressService.findAllAddressesByCityId(cityid));
-            //model.addAttribute("cities",cityService.findAllCities());
-            return "addressfromcity";
-        }
-        else {
-            addressService.newAddress(address);
-        }
-        return "redirect:/address/" + cityid + "/city";
-    }
-    @GetMapping(value = "/{cityid}/city/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String showAddressEditFormFromCity(Model model,@PathVariable(name = "id") int id)
-    {
-        Optional<Address> address = addressService.showAddressById(id);
-        model.addAttribute("cityid",address.get().getCity().getCityid());
-        model.addAttribute("namecity",address.get().getCity().getNamecity());
-        model.addAttribute("address",address);
-        return "addresseditfromcity";
-    }
-    @GetMapping(value = "edit/{id}")
+
+
+    @GetMapping(value = "/edit/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public String showAddressEditForm(Model model,@PathVariable(name = "id") int id)
     {
-        Optional<Address> address = addressService.showAddressById(id);
-        Iterable<City> cities = cityService.findAllCities();
-        model.addAttribute("cities",cities);
-        model.addAttribute("address",address);
+
+        model.addAttribute("cities",cityService.findAllCities());
+        model.addAttribute("address",addressService.showAddressById(id));
         return "addressedit";
     }
     @PostMapping(value = "/update")
@@ -133,26 +86,5 @@ public class AddressController {
 
         return "redirect:/address";
     }
-    @PostMapping(value = "/updateaddressfromcity")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String updateAddressFromCity(Model model, @Valid @ModelAttribute("address") Address address,Errors errors) {
-       Long cityid = address.getCity().getCityid();
-        if (errors.hasErrors())
-        {
-
-            model.addAttribute("cityid",cityid);
-            model.addAttribute("namecity",cityService.showCityById(cityid).get().getNamecity());
-            return "addresseditfromcity";
-        }
-        else
-        {
-
-            addressService.newAddress(address);
-        }
-
-        return "redirect:/address/"+ cityid +"/city";
-    }
-
-
 
 }

@@ -27,7 +27,7 @@ public class AddressRepositoryTest {
     private Address address;
     @BeforeEach
     public void setup(){
-        address = Address.builder().person("212121").street("1212").building("121212").office("sfds23").build();
+        address = Address.builder().person("212121").street("12122323").building("121212").office("sfds23").build();
     }
     @Test
     public void saveAddressTest()

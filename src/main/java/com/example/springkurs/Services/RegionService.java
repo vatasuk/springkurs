@@ -6,6 +6,7 @@ import com.example.springkurs.entity.Region;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Optional;
 
@@ -40,5 +41,18 @@ public class RegionService {
 
     public Optional<Region> showRegionById(long id){
         return regionRepository.findById(id);
+    }
+    public Iterable<Region> findRegionByCountryName(String namecountry){
+        return regionRepository.findByCountry_Fullname(namecountry);
+    }
+    public Model fill( String namecountry, Model model)
+    {
+        if (namecountry == null || namecountry.isEmpty())
+        {
+          return   model.addAttribute("regions", findAllRegions());
+        }
+        else {
+          return   model.addAttribute("regions",findRegionByCountryName(namecountry));
+        }
     }
 }

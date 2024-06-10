@@ -7,6 +7,7 @@ import com.example.springkurs.entity.City;
 import com.example.springkurs.entity.Country;
 import com.example.springkurs.entity.Region;
 import jakarta.validation.Valid;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @RequestMapping("/countries")
 public class CountryController {
 
-    private CountryService countryService;
+    private final CountryService countryService;
 
     public CountryController(
             CountryService countryService) {
@@ -30,10 +31,8 @@ public class CountryController {
     @GetMapping
     public String showCountries(Model model)
     {
-        Country country = new Country();
-        Iterable<Country> countries = countryService.showAllCountries();
-        model.addAttribute("countries",countries);
-        model.addAttribute("country",country);
+        model.addAttribute("countries",countryService.showAllCountries());
+        model.addAttribute("country",new Country());
         return "country";
     }
     @GetMapping(value = "/delete/{id}")
@@ -47,8 +46,7 @@ public class CountryController {
     public String newCountry(Model model, @Valid @ModelAttribute(value = "country")  Country country, Errors errors){
 
         if (errors.hasErrors()) {
-            Iterable<Country> countries = countryService.showAllCountries();
-            model.addAttribute("countries",countries);
+            model.addAttribute("countries",countryService.showAllCountries());
             return "country";
         }
         else {

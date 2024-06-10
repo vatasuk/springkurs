@@ -11,4 +11,6 @@ import java.util.List;
 public interface RegionRepository extends CrudRepository<Region,Long> {
 
     Iterable<Region> findByCountry_Countryid(long id);
+    Iterable<Region> findByNameregion(String nameregion);
+    Iterable<Region> findByCountry_Fullname(String namecountry);
 }

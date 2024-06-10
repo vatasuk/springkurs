@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface CountryRepository extends CrudRepository<Country,Long> {
 
+    Iterable<Country> findByFullname(String fullname);
 }

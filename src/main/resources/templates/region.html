@@ -6,22 +6,15 @@
     <title>Title</title>
 </head>
 <body>
-<ul class="topnav">
-    <li><a th:href="@{/}">Домой</a></li>
-    <li><a th:href="@{/address}">Адреса</a></li>
-    <li><a th:href="@{/countries}">Страны</a></li>
-    <li><a th:href="@{/regions}">Регионы</a></li>
-    <li><a th:href="@{/cities}">Города</a></li>
-    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
-    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
-</ul>
+<p><a th:href="@{/}"><img src="/static/images/home.png" width="68" height="68" border="0" alt=""></a></p>
+<div class="scroll-table">
 <div class="scroll-table">
     <table class="table"  id = "countries">
         <thead>
     <tr>
         <th>Название</th>
         <th>Страна</th>
-        <th>Действие</th>
+        <th sec:authorize="hasRole('ADMIN')">Действие</th>
     </tr>
    </thead>
     </table>
@@ -33,23 +26,22 @@
     <tr th:each="region: ${regions}">
         <td th:text="${region.getCountry().getFullname()}"></td>
         <td th:text="${region.nameregion}"></td>
-        <td>
+        <td sec:authorize="hasRole('ADMIN')">
             <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/edit/' + ${region.regionid}}">Изменить</a>
             <a sec:authorize="hasRole('ADMIN')" th:href="@{'/regions/delete/' + ${region.regionid}}">Удалить</a>
-            <a  th:href="@{'/cities/' + ${region.regionid} + '/region'}">Показать города</a>
         </td>
     </tr>
     </tbody>
 </table>
 </div>
 </div>
-
+    <div class="sleva">
 <form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/regions/new}" th:object="${region}"
       method="post">
     <ul>
         <li>
             <label >Страна</label>
-            <select th:field = "*{country.countryid}">
+            <select  th:field = "*{country.countryid}">
                 <option th:each="country: ${countries}" th:value="${country.countryid}" th:text="${country.fullname}">
                 </option>
             </select>
@@ -67,5 +59,27 @@
         </li>
     </ul>
 </form>
+        </div>
+<form class="form-style-7"  th:action="@{'/regions'}" method="get" >
+    <ul>
+        <li>
+            <label >Название страны</label>
+            <input type="text" th:id="namecountry" th:name="namecountry" th:value="${namecountry}" maxlength="100">
+
+
+        </li>
+        <li>
+            <input type="submit" value="Поиск" >
+            <input type="button" value="Отменить" onclick="clearSearch()">
+        </li>
+    </ul>
+</form>
+
+</body>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/regions}]]";
+    }
+</script>
 </body>
 </html>

@@ -13,4 +13,6 @@ public interface AddressRepository extends CrudRepository<Address,Long> {
 
     Iterable<Address> findByCity_Cityid(long id);
 
+    Iterable<Address> findByCity_NamecityOrCity_Region_NameregionOrCity_Region_Country_Fullname(String namecity,String nameregion,String fullname);
+
 }

@@ -35,4 +35,11 @@ public class CountryService {
     public Optional<Country> showCountryById(long id){
         return countryRepository.findById(id);
     }
+
+    public  Iterable<Country> findByFullName(String name)
+    {
+        return  countryRepository.findByFullname(name);
+    }
+
+
 }

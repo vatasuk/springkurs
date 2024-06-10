@@ -8,7 +8,6 @@
 
 </head>
 <ul class="topnav">
-    <li><a th:href="@{/}">Домой</a></li>
     <li><a th:href="@{/address}">Адреса</a></li>
     <li><a th:href="@{/countries}">Страны</a></li>
     <li><a th:href="@{/regions}">Регионы</a></li>
@@ -17,5 +16,30 @@
     <li class="right" sec:authorize="isAuthenticated()" ><form th:action="@{/logout}" method="post"><input type="submit" value="Logout" /></form></li>
 </ul>
 <P align="center" sec:authorize="isAuthenticated()"> Вы вошли как администатор</P>
+
+<body>
+
+<form  sec:authorize="isAuthenticated()" class="form-style-7" method="POST" th:action="@{/register}" id="loginForm">
+    <ul>
+        <li>
+            <label for="username">Имя пользователя: </label>
+            <input type="text" name="username"/><br/>
+
+        </li>
+        <li>
+
+            <label for="password">Пароль:</label>
+            <input type="password" name="password"/><br/>
+        </li>
+        <li>
+            <label for="confirm">Повторите пароль: </label>
+            <input type="password" name="confirm"/><br/>
+        </li>
+
+        <li>
+            <input type="submit" value="Создать нового администратора" >
+        </li>
+    </ul>
+</form>
 </body>
 </html>

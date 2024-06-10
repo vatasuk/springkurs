@@ -6,15 +6,7 @@
     <title>Список клиентов</title>
 </head>
 <body>
-<ul class="topnav">
-    <li><a th:href="@{/}">Домой</a></li>
-    <li><a th:href="@{/address}">Адреса</a></li>
-    <li><a th:href="@{/countries}">Страны</a></li>
-    <li><a th:href="@{/regions}">Регионы</a></li>
-    <li><a th:href="@{/cities}">Города</a></li>
-    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
-    <li class="right" sec:authorize="isAuthenticated()" ><form th:action="@{/logout}" method="post"><input type="submit" value="Logout" /></form></li>
-</ul>
+<p><a th:href="@{/}"><img src="/static/images/home.png" width="68" height="68" border="0" alt=""></a></p>
 <div class="scroll-table">
     <table class="table"  id = "countries">
         <thead>
@@ -52,7 +44,7 @@
         </table>
     </div>
 </div>
-
+<div class="sleva">
 <form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/address/new}" th:object="${address}"
       method="post">
     <ul>
@@ -99,5 +91,27 @@
         </li>
     </ul>
 </form>
+</div>
+<form class="form-style-7"  th:action="@{'/address'}" method="get" >
+    <ul>
+        <li>
+            <label >Город</label>
+            <input type="text" th:id="namecity" th:name="namecity" th:value="${namecity}" maxlength="100">
+        </li>
+        <li>
+            <label >Регион</label>
+            <input type="text" th:id="nameregion" th:name="nameregion" th:value="${nameregion}" maxlength="100">
+        </li>
+        <li>
+            <label >Страна</label>
+            <input type="text" th:id="namecountry" th:name="namecountry" th:value="${namecountry}" maxlength="100">
+        </li>
+        <li>
+            <input type="submit" value="Поиск" >
+            <input type="button" value="Отменить" onclick="clearSearch()">
+        </li>
+    </ul>
+</form>
+
 </body>
 </html>

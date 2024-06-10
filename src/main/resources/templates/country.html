@@ -5,16 +5,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<ul class="topnav">
-    <li><a th:href="@{/}">Домой</a></li>
-    <li><a th:href="@{/address}">Адреса</a></li>
-    <li><a th:href="@{/countries}">Страны</a></li>
-    <li><a th:href="@{/regions}">Регионы</a></li>
-    <li><a th:href="@{/cities}">Города</a></li>
-    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
-    <li class="right" sec:authorize="isAuthenticated()"><a th:href = "@{/logout}">Выход</a></li>
-</ul>
+<body><p><a th:href="@{/}"><img src="/static/images/home.png" width="68" height="68" border="0" alt=""></a></p>
+<div class="scroll-table">
 
 <div class="scroll-table">
     <table class="table"  id = "countries">
@@ -22,50 +14,70 @@
             <tr>
                 <th>Полное название</th>
                 <th>Краткое</th>
-                <th  >Действие</th>
+                <th sec:authorize="hasRole('ADMIN')" >Действие</th>
             </tr>
         </thead>
     </table>
 
-<div class="scroll-table-body">
+<div  class="scroll-table-body">
     <table>
         <tbody>
             <tr th:each="country: ${countries}">
                 <td th:text="${country.fullname}"></td>
                 <td th:text="${country.shortname}"></td>
-                <td>
+                <td sec:authorize="hasRole('ADMIN')">
                     <a sec:authorize="hasRole('ADMIN')" th:href="@{'/countries/delete/' + ${country.countryid}}">Удалить</a>
                     <a sec:authorize="hasRole('ADMIN')" th:href="@{'/countries/edit/' + ${country.countryid}}">Изменить</a>
-                    <a th:href="@{'/regions/' + ${country.countryid} + '/country'}">Показать регионы</a>
                 </td>
             </tr>
         </tbody>
 </table>
-</div></div>
+</div>
+    <div class="sleva">
+        <form  class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{'/countries/new'}" th:object="${country}"
+               method="post">
+            <ul>
 
-<form class="form-style-7" sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/countries/new}" th:object="${country}"
-      method="post">
+                <li>
+                    <label >Полное название</label>
+                    <input type="text" th:field="*{fullname}" maxlength="100">
+                    <span class="validationError"
+                          th:if="${#fields.hasErrors('fullname')}"
+                          th:errors="*{fullname}">Name Error</span>
+                </li>
+                <li>
+                    <label >Краткое название</label>
+                    <input type="text" th:field="*{shortname}" maxlength="15">
+                </li>
+
+                <li>
+                    <input type="submit" value="Добавить новую страну" >
+                </li>
+            </ul>
+        </form>
+    </div>
+
+
+
+<form class="form-style-7"  th:action="@{'/countries'}" method="get" >
     <ul>
-
         <li>
-            <label >ID</label>
-            <input type="text" th:field="*{fullname}" maxlength="100">
-            <span class="validationError"
-                  th:if="${#fields.hasErrors('shortname')}"
-                  th:errors="*{shortname}">Name Error</span>
+            <label >Полное название</label>
+            <input type="text" th:id="fullname" th:name="fullname" th:value="${country.fullname}" maxlength="100">
+
+
         </li>
         <li>
-            <label >Краткое название</label>
-            <input type="text" th:field="*{shortname}" maxlength="15">
-
-            <span class="validationError"
-                  th:if="${#fields.hasErrors('fullname')}"
-                  th:errors="*{fullname}">Name Error</span>
-        </li>
-        <li>
-            <input type="submit" value="Добавить новую страну" >
+            <input type="submit" value="Поиск" >
+            <input type="button" value="Отменить" onclick="clearSearch()">
         </li>
     </ul>
 </form>
+
 </body>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/countries}]]";
+    }
+</script>
 </html>
