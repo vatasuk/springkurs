@@ -23,8 +23,8 @@ public class SecurityConfig {
     }
 
     @Bean
-   public User newUser(UserRepository userRepository){ //если Psql то это не надо
-      return userRepository.save(new User("vadim",passwordEncoder().encode("vadim")));
+    public User newUser(UserRepository userRepository) {
+        return userRepository.save(new User("vadim",passwordEncoder().encode("vadim")));
     }
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {

@@ -1,27 +1,32 @@
+﻿drop table if exists country cascade;
+drop table if exists region cascade;
+drop table if exists city cascade;
+drop table if exists address cascade;
+drop table if exists users cascade;
 create table if not exists country
 (
-    countryid identity  primary key,
+    countryid serial  primary key,
     fullname character varying(30) not null unique,
     shortname character varying(10) not null
 );
 
 create table if not exists region
 (
-  regionid identity  primary key,
-  countryidfk  long,
-  nameregion character varying(30) not null unique
+    regionid serial  primary key,
+    countryidfk int,
+    nameregion character varying(30) not null unique
 );
 
 create table if not exists city
 (
-  cityid identity  primary key,
-  regionidfk integer,
-  namecity character varying(20) not null unique
+    cityid serial  primary key,
+    regionidfk integer,
+    namecity character varying(20) not null unique
 );
 
 create table if not exists address
 (
-    addressid identity  primary key,
+    addressid serial  primary key,
     cityidfk integer,
     person character varying(30) not null,
     street character varying(15) not null,
@@ -31,11 +36,10 @@ create table if not exists address
 
 create table if not exists users
 (
-    userid identity  primary key,
+    userid serial  primary key,
     username character varying(50) not null unique,
     password character varying(255) not null unique
 );
-
 
 
 alter table region
@@ -46,6 +50,8 @@ alter table city
 
 alter table address
     add foreign key (cityidfk) references city(cityid) on delete cascade;
+
+
 
 insert into country (fullname,shortname) values ('Россия','RU');
 insert into country (fullname,shortname) values ('United States of America','USA');
@@ -72,5 +78,4 @@ insert into address(cityidfk, person, street, building, office) values (5,'BEBAB
 
 
 
-insert into users(username, password) values ('vatasuk','$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by');
-
+insert into users(username, password) values ('vatasuk','vatasuk');
