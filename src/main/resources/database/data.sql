@@ -19,8 +19,3 @@ insert into address(cityidfk, person, street, building, office) values (3,'ГУ�
 insert into address(cityidfk, person, street, building, office) values (4,'BYBYBY','BSBSBS', '1','2');
 insert into address(cityidfk, person, street, building, office) values (5,'BOBOBO','BCBCBC', '1','3');
 insert into address(cityidfk, person, street, building, office) values (5,'BEBABU','BNBNBN', '1','3');
-
-
-
-
-insert into users(username, password) values ('vatasuk','vatasuk');
