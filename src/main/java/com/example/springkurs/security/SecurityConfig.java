@@ -22,10 +22,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+    /*@Bean
     public User newUser(UserRepository userRepository) {
         return userRepository.save(new User("vadim",passwordEncoder().encode("vadim")));
-    }
+    }*/
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> {

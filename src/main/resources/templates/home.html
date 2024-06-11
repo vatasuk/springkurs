@@ -7,14 +7,19 @@
     <title>Title</title>
 
 </head>
-<ul class="topnav">
-    <li><a th:href="@{/address}">Адреса</a></li>
-    <li><a th:href="@{/countries}">Страны</a></li>
-    <li><a th:href="@{/regions}">Регионы</a></li>
-    <li><a th:href="@{/cities}">Города</a></li>
-    <li class="right" sec:authorize="isAnonymous()" ><a th:href = "@{/login}">Вход</a></li>
-    <li class="right" sec:authorize="isAuthenticated()" ><form th:action="@{/logout}" method="post"><input type="submit" value="Logout" /></form></li>
-</ul>
+<body>
+<div class="sidebar">
+    <div><a class="text" th:href="@{/address}">Адреса</a></div>
+    <div><a class="text" th:href="@{/countries}">Страны</a></div>
+    <div><a class="text" th:href="@{/regions}">Регионы</a></div>
+    <div><a class="text" th:href="@{/cities}">Города</a></div>
+    <div  sec:authorize="isAnonymous()"> <a class="text" th:href = "@{/login}">Вход</a></div>
+    <div sec:authorize="isAuthenticated()" ><a class="text" href="javascript: document.logoutForm.submit()" role="menuitem"> Выйти</a></div>
+</div>
+
+<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+    <input hidden type="submit" value="Sign Out"/>
+</form>
 <P align="center" sec:authorize="isAuthenticated()"> Вы вошли как администатор</P>
 
 <body>

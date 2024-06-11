@@ -248,3 +248,23 @@ ul.topnav li.right {float: right;}
 .sleva{
     float: left;
 }
+.sidebar {
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 40px;
+    background-color: lightblue;
+}
+.sidebar div {
+    padding: 8px;
+    font-size: 24px;
+    display: block;
+}
+a.text:active, /* активная/посещенная ссылка */
+a.text:hover,  /* при наведении */
+a.text {
+    text-decoration: none;
+    color: #000;
+}
